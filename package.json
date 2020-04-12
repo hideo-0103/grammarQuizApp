@@ -1,5 +1,7 @@
 {
   "name": "grammarQuizApp",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "highlight.js": "^9.18.1"
+  }
 }
