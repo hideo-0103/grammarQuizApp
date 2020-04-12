@@ -1,0 +1,19 @@
+
+<div class="container">
+  <div class="form-container">
+    <%= form_with model: @quiz do |f| %>
+      <div class="clearfix">
+        <div class="title-form">
+          <%= f.text_field :title %>
+        </div>
+        <div class="question-form">
+          <%= f.text_area :question %>
+        </div>
+        <div class="answer-form">
+          <%= f.text_area :answer %>
+        </div>
+      </div>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>

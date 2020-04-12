@@ -1,0 +1,14 @@
+<header>
+  <%if user_signed_in? == false %>
+    <%= link_to "サインアップ", new_user_session_path %>
+    <%= link_to "新規登録", new_user_registration_path %>
+  <% end%>
+  <%= link_to "問題を作成する", new_quiz_path %>
+</header>
+
+<div class="container">
+  <% @quizzes.each_with_index do |quiz, i| %>
+    <%= i+1 %>
+    <%= link_to quiz.title, "/quizzes/#{quiz.id}"%>
+  <% end%>
+</div>
