@@ -9,11 +9,34 @@
         <div class="question-form">
           <%= f.text_area :question %>
         </div>
-        <div class="answer-form">
-          <%= f.text_area :answer %>
+        <div class="row">
+          <div class="col-5 m-1">
+            <%= f.text_area :answer ,id: "markdown_editor_textarea", class:"form-control"%>
+          </div>
+            <div class="col-6 m-1 border">
+        <!-- ここに出力される -->
+              <div id="markdown_preview"></div>
+            </div>
         </div>
       </div>
       <%= f.submit %>
     <% end %>
   </div>
 </div>
+
+<script>
+  $(function () {
+    marked.setOptions({
+      // code要素にdefaultで付くlangage-を削除
+      langPrefix: '',
+      // highlightjsを使用したハイライト処理を追加
+      highlight: function (code, lang) {
+        return hljs.highlightAuto(code, [lang]).value
+      }
+    });
+    $('#markdown_editor_textarea').keyup(function () {
+      var html = marked($(this).val());
+      $('#markdown_preview').html(html);
+    });
+  });
+</script>

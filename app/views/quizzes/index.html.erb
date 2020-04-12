@@ -2,8 +2,11 @@
   <%if user_signed_in? == false %>
     <%= link_to "サインアップ", new_user_session_path %>
     <%= link_to "新規登録", new_user_registration_path %>
+  <% else%>
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <%= link_to "問題を作成する", new_quiz_path %>
+    <%= link_to "問題を解く", "/users/#{current_user.id}/challenge" %>
   <% end%>
-  <%= link_to "問題を作成する", new_quiz_path %>
 </header>
 
 

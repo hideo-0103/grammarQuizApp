@@ -20,8 +20,8 @@ class QuizzesController < ApplicationController
 
 
   def show
-    
     @quiz = Quiz.find(params[:id])
+    gon.modelAnswer = @quiz
   end
 
   private

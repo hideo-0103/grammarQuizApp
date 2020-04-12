@@ -1,12 +1,48 @@
-<h1>問題</h1>
+<div class="h-25 w-100 border-bottom">
+  <%= link_to "TOP", root_path, class:"btn btn-primary mt-3 ml-3 mb-3"%>
+</div>
 
-<div class="row">
-  <div class="col-5 m-1">
-<!-- ここに入力-->
-    <textarea name="article" id="markdown_editor_textarea" cols="30" rows="30" class="form-control"></textarea>
-  </div>
-    <div class="col-6 m-1 border">
-<!-- ここに出力される -->
+<div class="container h-75 mt-5">
+  <p>問題</p>
+  <div class="row h-75">
+    <div class="col-5 m-1 h-50">
+  <!-- ここに入力-->
+      <textarea name="article" id="markdown_editor_textarea" cols="30" rows="15" class="form-control h-100"></textarea>
+    </div>
+    <div class="col-6 m-1 border h-50">
+  <!-- ここに出力される -->
       <div id="markdown_preview"></div>
     </div>
+  </div>
 </div>
+
+<script>
+  $(function () {
+    marked.setOptions({
+      // code要素にdefaultで付くlangage-を削除
+      langPrefix: '',
+      // highlightjsを使用したハイライト処理を追加
+      highlight: function (code, lang) {
+        return hljs.highlightAuto(code, [lang]).value
+      }
+    });
+    $('#markdown_editor_textarea').keyup(function () {
+      var html = marked($(this).val());
+      $('#markdown_preview').html(html);
+    });
+
+    $("#btn").on('click', function () {
+      var answer = $("#markdown_editor_textarea").val();
+      var modelAnswer = gon.modelAnswer;
+      $("#markdown_editor_textarea").val(modelAnswer.answer);
+      var html = marked($("#markdown_editor_textarea").val());
+      $('#markdown_preview').html(html);
+      console.log(modelAnswer.answer);
+      if(modelAnswer.answer === answer){
+        console.log('success!!');
+      }else{
+        console.log('Miss!!');
+      }
+    });
+  })
+</script>
