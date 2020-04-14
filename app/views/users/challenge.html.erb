@@ -1,23 +1,50 @@
-<div class="h-25 w-100 border-bottom">
+<div class="h-25 w-100 border-bottom" id="answer-display">
   <%= link_to "TOP", root_path, class:"btn btn-primary mt-3 ml-3 mb-3"%>
 </div>
-
 <div class="container h-75 mt-5">
   <p>問題</p>
-  <div class="row h-75">
-    <div class="col-5 m-1 h-50">
+  <p id="quiz-title"><%= @quizzes[0].title%></p>
+  <div id="quizText"></div>
+  <div class="row h-75 p-3">
+    <div class="col-6 p-0 h-50 mr-5">
   <!-- ここに入力-->
       <textarea name="article" id="markdown_editor_textarea" cols="30" rows="15" class="form-control h-100"></textarea>
     </div>
-    <div class="col-6 m-1 border h-50">
+    <div class="col-5 border h-50">
   <!-- ここに出力される -->
       <div id="markdown_preview"></div>
     </div>
   </div>
+  <button id="answer-btn" type="button" class="btn btn-primary mb-8" data-toggle="modal" data-target="#testModal">回答する</button>
 </div>
 
+<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4><div class="modal-title" id="myModalLabel">削除確認画面</div></h4>
+            </div>
+            <div class="modal-body d-flex">
+                <div class="card w-50" id="answer_preview"></div>
+                <div class="card w-50" id="preview"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="judge-btn" type="button" class="btn btn-default" data-dismiss="modal">正解</button>
+                <button id="judge-btn" type="button" class="btn btn-danger" data-dismiss="modal">不正解</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+  .code{
+    border:1px solid #ced4da;
+    border-radius:4px;
+    padding:10px;
+  }
+</style>
 <script>
   $(function () {
+    
     marked.setOptions({
       // code要素にdefaultで付くlangage-を削除
       langPrefix: '',
@@ -30,19 +57,29 @@
       var html = marked($(this).val());
       $('#markdown_preview').html(html);
     });
-
-    $("#btn").on('click', function () {
+    var index;
+    var modelAnswer = gon.quizzes;
+    let i = 0;
+    console.log(modelAnswer);
+    var textHtml = marked(modelAnswer[i].question);
+    $('#quizText').html(textHtml);
+    $("#answer-btn").on('click', function () {
       var answer = $("#markdown_editor_textarea").val();
-      var modelAnswer = gon.modelAnswer;
-      $("#markdown_editor_textarea").val(modelAnswer.answer);
-      var html = marked($("#markdown_editor_textarea").val());
-      $('#markdown_preview').html(html);
-      console.log(modelAnswer.answer);
-      if(modelAnswer.answer === answer){
-        console.log('success!!');
-      }else{
-        console.log('Miss!!');
-      }
+      var answerHtml = marked($("#markdown_editor_textarea").val());
+      var html = marked(modelAnswer[i].answer);
+      $('#answer_preview').html(answerHtml);
+      $('#preview').html(html);
+      
     });
+
+    $('#judge-btn').on('click', function() {
+      var clearHtml = marked("");
+      $("#markdown_editor_textarea").val("");
+      $('#markdown_preview').html(clearHtml);
+      i++;
+      var textHtml = marked(modelAnswer[i].question);
+      $('#quizText').html(textHtml);
+    })
+    
   })
 </script>

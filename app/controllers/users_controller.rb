@@ -6,5 +6,6 @@ class UsersController < ApplicationController
 
   def challenge
     gon.quizzes = Quiz.all
+    @quizzes = Quiz.all
   end
 end
