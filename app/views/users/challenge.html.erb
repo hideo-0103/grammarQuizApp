@@ -3,7 +3,7 @@
 </div>
 <div class="container h-75 mt-5">
   <p>問題</p>
-  <p id="quiz-title"><%= @quizzes[0].title%></p>
+  <p id="quizTitle"><%= @quizzes[0].title%></p>
   <div id="quizText"></div>
   <div class="row h-75 p-3">
     <div class="col-6 p-0 h-50 mr-5">
@@ -29,8 +29,8 @@
                 <div class="card w-50" id="preview"></div>
             </div>
             <div class="modal-footer">
-                <button id="judge-btn" type="button" class="btn btn-default" data-dismiss="modal">正解</button>
-                <button id="judge-btn" type="button" class="btn btn-danger" data-dismiss="modal">不正解</button>
+                <button type="button" class="judge-btn btn btn-default" data-dismiss="modal">正解</button>
+                <button type="button" class="judge-btn btn btn-danger" data-dismiss="modal">不正解</button>
             </div>
         </div>
     </div>
@@ -72,14 +72,15 @@
       
     });
 
-    $('#judge-btn').on('click', function() {
+    $('.judge-btn').on('click', function() {
       var clearHtml = marked("");
       $("#markdown_editor_textarea").val("");
       $('#markdown_preview').html(clearHtml);
       i++;
       var textHtml = marked(modelAnswer[i].question);
+      var titleHtml = marked(modelAnswer[i].title);
       $('#quizText').html(textHtml);
+      $('#quizTitle').html(titleHtml);
     })
-    
-  })
+  });
 </script>

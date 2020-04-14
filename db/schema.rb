@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_001824) do
     t.string "title", null: false
     t.text "question", null: false
     t.text "answer", null: false
+    t.integer "language_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
