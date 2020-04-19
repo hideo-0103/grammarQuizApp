@@ -1,5 +1,4 @@
 $(function(){
-  // const url = location.href;
   const searchResult = $('.result');
 
   function addLanguage(langID) {
@@ -52,7 +51,6 @@ $(function(){
     console.log('click');
     console.log(lang);
     addLanguage(langId);
-    // $("textarea").attr('placeholder',lang);
     $("textarea").val(addSyntax(lang));
     $(this).removeClass("btn-outline-dark");
     $(this).addClass("btn-dark");
