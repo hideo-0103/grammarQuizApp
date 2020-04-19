@@ -4,20 +4,24 @@
     <%= form_with model: @quiz do |f| %>
       <div class="clearfix">
         <div class="form-group">
-          <select name="カテゴリー" id="" class="form-control">
-            <option value="-">言語</option>
-            <option value="1">java</option>
-          </select>
+          <input type="text" name="language" id="lang">
         </div>
+        <ul class="result">
+        </ul>
         <%= f.label "問題のタイトル" %>
+        <div class="btn btn-sm btn-outline-dark" id="all-reset">ALL RESET</div>
         <div class="title-form">
           <%= f.text_field :title, class:"form-control" %>
         </div>
-        <%= f.label "問題文" %>
-        <div class="question-form">
-          <%= f.text_area :question, class:"form-control " %>
+        <div class="question mt-3 mb-3">
+          <%= f.label "問題文" %>
+          <div class="btn btn-sm btn-outline-dark" id="question-reset">RESET</div>
+          <div class="question-form">
+            <%= f.text_area :question, class:"form-control ",id:"question_textarea" %>
+          </div>
         </div>
         <%= f.label "解答" %>
+        <div class="btn btn-sm btn-outline-dark" id="answer-reset">RESET</div>
         <div class="row justify-content-between mb-3">
           <div class="col-5 d-flex">
             <%= f.text_area :answer ,id: "markdown_editor_textarea", class:"form-control"%>
@@ -37,6 +41,7 @@
 
 <script>
   $(function () {
+
     marked.setOptions({
       // code要素にdefaultで付くlangage-を削除
       langPrefix: '',
